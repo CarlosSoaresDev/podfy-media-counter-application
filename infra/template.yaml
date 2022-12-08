@@ -18,7 +18,7 @@ Globals:
     Timeout: 30
     MemorySize: 128
     Runtime: dotnet6
-    CodeUri: s3://lambda-aplication-repository/media-counter-application/release.zip
+    CodeUri: s3://lambda-aplication-repository/podfy-media-counter-application/release.zip
     Environment:
         Variables:
           ACCESS_KEY: !Ref AccessKey
@@ -40,9 +40,9 @@ Resources:
   LambdaMediaCounterFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub '${ApplicationName}-mediacounter'
-      Description: This lambda api gateway to get all media counter
-      Handler: media-counter-application::media_counter_application.Function::MediaCounterFunctionHandlerAsync
+      FunctionName: !Sub '${ApplicationName}-podfy-mediacounter'
+      Description: This lambda api gateway to get all podfy media counter
+      Handler: podfy-media-counter-application::podfy_media_counter_application.Function.Function::MediaCounterFunctionHandlerAsync
       Events:
         ProxyApiRoot:
           Type: Api
@@ -54,9 +54,9 @@ Resources:
   LambdaAddMediaCounterFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub '${ApplicationName}-add-mediacounter'
-      Description: This lambda api gateway to get all media counter
-      Handler: media-counter-application::media_counter_application.Function::AddMediaCounterFunctionHandlerAsync
+      FunctionName: !Sub '${ApplicationName}-add-podfy-mediacounter'
+      Description: This lambda api gateway to get all podfy media counter
+      Handler: podfy-media-counter-application::podfy_media_counter_application.Function.Function::AddMediaCounterFunctionHandlerAsync
       Events:
         ProxyApiRoot:
           Type: Api
@@ -68,9 +68,9 @@ Resources:
   LambdaDeleteMediaCounterFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: !Sub '${ApplicationName}-delete-mediacounter'
+      FunctionName: !Sub '${ApplicationName}-delete-podfy-mediacounter'
       Description: This lambda register an new counter by trigger s3 event
-      Handler: media-counter-application::media_counter_application.Function::DeleteMediaCounterFunctionHandlerAsync
+      Handler: podfy-media-counter-application::podfy_media_counter_application.Function.Function::DeleteMediaCounterFunctionHandlerAsync
       Role: !GetAtt LambdaMediaCounterExecutionRole.Arn      
 
   S3Bucket:

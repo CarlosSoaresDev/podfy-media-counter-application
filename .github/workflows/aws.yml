@@ -1,9 +1,9 @@
-name: Infra media counter application
+name: Infra podfy media counter application
 
 env:
-  service-name: service-media-counter-application
-  working-directory-test:  ./app/test/media-counter-application.test/
-  working-directory-build: ./app/src/media-counter-application/   
+  service-name: service-podfy-media-counter-application
+  working-directory-test:  ./app/test/podfy-media-counter-application.test/
+  working-directory-build: ./app/src/podfy-media-counter-application/   
   working-directory-root: ./ 
 
 on:
