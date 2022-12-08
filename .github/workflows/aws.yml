@@ -73,7 +73,7 @@ jobs:
           echo " ########## End ZIPING ##########"
           ls -R
           echo " ########## Start Send to S3 ##########"
-          aws s3 cp ./release.zip s3://lambda-aplication-repository/media-counter-application/
+          aws s3 cp ./release.zip s3://lambda-aplication-repository/podfy-media-counter-application/
        working-directory: ${{env.working-directory-build}}/artifact
 
      - name: AWS Deploy CloudFormation Stack
