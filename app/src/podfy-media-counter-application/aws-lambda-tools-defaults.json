@@ -12,5 +12,5 @@
   "function-runtime": "dotnet6",
   "function-memory-size": 256,
   "function-timeout": 30,
-  "function-handler": "podfy-media-counter-application::podfy_media_counter_application.Function::FunctionHandler"
+  "function-handler": "podfy-media-counter-application::podfy_media_counter_application.Function::AddMediaCounterFunctionHandlerAsync"
 }
