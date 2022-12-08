@@ -31,11 +31,13 @@ Resources:
     Properties:
       Name: !Sub '${ApplicationName}-api'
       StageName: Prod
+      CacheClusterEnabled: true
+      CacheClusterSize: '0.5'
       MethodSettings:
         - ResourcePath: /
           HttpMethod: GET
           CachingEnabled: true
-          CacheTtlInSeconds: 2000
+          CacheTtlInSeconds: 200
   
   LambdaMediaCounterFunction:
     Type: AWS::Serverless::Function
