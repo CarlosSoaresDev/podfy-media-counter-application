@@ -1,0 +1,123 @@
+AWSTemplateFormatVersion : 2010-09-09
+Description: Get up services to media counter application serverless [ SNS, lambda]
+Transform: AWS::Serverless-2016-10-31
+
+Parameters:
+  ApplicationName:
+    Type: String
+  AccessKey:
+    Type: String
+  SecretKey:
+    Type: String
+  BucketName:
+    Description: bucket name to create
+    Type: String
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 128
+    Runtime: dotnet6
+    CodeUri: s3://lambda-aplication-repository/media-counter-application/release.zip
+    Environment:
+        Variables:
+          ACCESS_KEY: !Ref AccessKey
+          SECRET_KEY: !Ref SecretKey
+
+Resources:
+
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: !Sub '${ApplicationName}-api'
+      StageName: Prod
+      MethodSettings:
+        - ResourcePath: /
+          HttpMethod: GET
+          CachingEnabled: true
+          CacheTtlInSeconds: 2000
+  
+  LambdaMediaCounterFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub '${ApplicationName}-mediacounter'
+      Description: This lambda api gateway to get all media counter
+      Handler: media-counter-application::media_counter_application.Function::MediaCounterFunctionHandlerAsync
+      Events:
+        ProxyApiRoot:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /
+            Method: GET
+  
+  LambdaAddMediaCounterFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub '${ApplicationName}-add-mediacounter'
+      Description: This lambda api gateway to get all media counter
+      Handler: media-counter-application::media_counter_application.Function::AddMediaCounterFunctionHandlerAsync
+      Events:
+        ProxyApiRoot:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /
+            Method: POST
+
+  LambdaDeleteMediaCounterFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub '${ApplicationName}-delete-mediacounter'
+      Description: This lambda register an new counter by trigger s3 event
+      Handler: media-counter-application::media_counter_application.Function::DeleteMediaCounterFunctionHandlerAsync
+      Role: !GetAtt LambdaMediaCounterExecutionRole.Arn      
+
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Ref BucketName
+      NotificationConfiguration:  
+        LambdaConfigurations:
+          - Event: 's3:ObjectRemoved:*'
+            Function: !GetAtt LambdaDeleteMediaCounterFunction.Arn
+
+  LambdaDeleteMediaCounterPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      FunctionName: !GetAtt LambdaDeleteMediaCounterFunction.Arn
+      Principal: s3.amazonaws.com
+      SourceAccount: !Ref 'AWS::AccountId'
+      SourceArn: !Sub 'arn:aws:s3:::${BucketName}'
+
+  LambdaMediaCounterExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Policies:
+        - PolicyName: AllowLogging
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - Effect: Allow
+              Action:
+              - logs:*
+              Resource: arn:aws:logs:*:*:*
+        - PolicyName: AllowS3ToLmabda
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - Effect: Allow
+              Action:
+              - s3:*
+              Resource: !Sub 'arn:aws:s3:::${BucketName}'

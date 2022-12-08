@@ -1,0 +1,8 @@
+{
+    "Parameters": [
+        {
+            "ParameterKey": "BucketName",
+            "ParameterValue": "media-catalog-files"
+          }
+    ]
+}
