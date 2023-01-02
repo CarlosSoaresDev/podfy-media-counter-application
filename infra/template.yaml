@@ -131,6 +131,7 @@ Resources:
             - Effect: Allow
               Action:
               - logs:*
+              - ec2:*
               Resource: arn:aws:logs:*:*:*
         - PolicyName: AllowS3ToLmabda
           PolicyDocument:
