@@ -132,7 +132,7 @@ Resources:
               Action:
               - logs:*
               - ec2:*
-              Resource: arn:aws:logs:*:*:*
+              Resource: "*"
         - PolicyName: AllowS3ToLmabda
           PolicyDocument:
             Version: '2012-10-17'
