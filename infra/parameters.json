@@ -3,6 +3,18 @@
         {
             "ParameterKey": "BucketName",
             "ParameterValue": "media-catalog-files"
-          }
+        },
+        {
+            "ParameterKey": "VPC",
+            "ParameterValue": "vpc-09437cf84703ff1bb"
+        },
+        {
+            "ParameterKey": "PrivateSubnetOne",
+            "ParameterValue": "subnet-027e0cc9599b8a957"
+        },
+        {
+            "ParameterKey": "PrivateSubnetTwo",
+            "ParameterValue": "subnet-060328fadbb359aa3"
+        }
     ]
 }
