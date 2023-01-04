@@ -131,9 +131,16 @@ Resources:
             - Effect: Allow
               Action:
               - logs:*
+              Resource: "*"
+        - PolicyName: AllowEC2
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - Effect: Allow
+              Action:
               - ec2:*
               Resource: "*"
-        - PolicyName: AllowS3ToLmabda
+        - PolicyName: AllowS3ToLamabda
           PolicyDocument:
             Version: '2012-10-17'
             Statement:

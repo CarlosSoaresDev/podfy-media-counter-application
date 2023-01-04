@@ -6,15 +6,15 @@
         },
         {
             "ParameterKey": "VPC",
-            "ParameterValue": "vpc-09437cf84703ff1bb"
+            "ParameterValue": "vpc-0fec991dfa7b4c255"
         },
         {
             "ParameterKey": "PrivateSubnetOne",
-            "ParameterValue": "subnet-027e0cc9599b8a957"
+            "ParameterValue": "subnet-0c3287bdab55d5c13"
         },
         {
             "ParameterKey": "PrivateSubnetTwo",
-            "ParameterValue": "subnet-060328fadbb359aa3"
+            "ParameterValue": "subnet-066e5a87699cdde99"
         }
     ]
 }
