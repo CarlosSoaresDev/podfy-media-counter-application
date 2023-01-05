@@ -5,6 +5,10 @@
             "ParameterValue": "media-catalog-files"
         },
         {
+            "ParameterKey": "LambdaAuthorizeName",
+            "ParameterValue": "service-podfy-user-application-validate-token"
+        },     
+        {
             "ParameterKey": "VPC",
             "ParameterValue": "vpc-0fec991dfa7b4c255"
         },
