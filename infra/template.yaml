@@ -102,7 +102,6 @@ Resources:
             Path: /
             Method: POST
             Auth:
-              ApiKeyRequired: false
               Authorizer: LambdaRequestAuth
 
   LambdaDeleteMediaCounterFunction:
