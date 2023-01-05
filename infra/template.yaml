@@ -24,28 +24,28 @@ Globals:
     Timeout: 30
     MemorySize: 128
     Runtime: dotnet6
-    CodeUri: s3://lambda-aplication-repository/podfy-media-counter-application/release.zip
-    VpcConfig:
-      SecurityGroupIds:
-        - !Ref ServerlessSecurityGroup
-      SubnetIds:
-        - !Ref PrivateSubnetOne
-        - !Ref PrivateSubnetTwo
+    CodeUri: s3://lambda-aplication-repository/podfy-media-counter-application/release.zip    
     Environment:
         Variables:
           ACCESS_KEY: !Ref AccessKey
           SECRET_KEY: !Ref SecretKey
+    # VpcConfig:
+    #   SecurityGroupIds:
+    #     - !Ref ServerlessSecurityGroup
+    #   SubnetIds:
+    #     - !Ref PrivateSubnetOne
+    #     - !Ref PrivateSubnetTwo
 
 Resources:
 
 # -------------------------------------------------------------------------
 # Deploy SG EC2
 # -------------------------------------------------------------------------
-  ServerlessSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: SecurityGroup for Serverless Functions
-      VpcId: !Ref VPC
+  # ServerlessSecurityGroup:
+  #   Type: AWS::EC2::SecurityGroup
+  #   Properties:
+  #     GroupDescription: SecurityGroup for Serverless Functions
+  #     VpcId: !Ref VPC
 
 # -------------------------------------------------------------------------
 # Deploy API Gateway serverless
