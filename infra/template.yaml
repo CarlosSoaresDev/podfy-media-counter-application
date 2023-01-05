@@ -103,7 +103,7 @@ Resources:
             Method: POST
             Auth:
               ApiKeyRequired: false
-              Authorizer: !Ref ApiGatewayApi.Auth.LambdaRequestAuth
+              Authorizer: LambdaRequestAuth
 
   LambdaDeleteMediaCounterFunction:
     Type: AWS::Serverless::Function
