@@ -20,6 +20,9 @@ Parameters:
     Type: String
 
 Globals:
+  HttpApi:
+    Auth:
+      EnableIamAuthorizer: true
   Function:
     Timeout: 30
     MemorySize: 128
@@ -93,6 +96,14 @@ Resources:
             RestApiId: !Ref ApiGatewayApi
             Path: /
             Method: POST
+            Auth:
+              Authorizer: 
+                MyLambdaRequestAuth:
+                  FunctionPayloadType: REQUEST
+                  FunctionArn: arn:aws:lambda:us-east-1:334110295592:function:service-podfy-user-application-validate-token
+                  Identity:
+                    Headers:
+                      - Authorization
 
   LambdaDeleteMediaCounterFunction:
     Type: AWS::Serverless::Function
