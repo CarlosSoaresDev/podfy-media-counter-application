@@ -64,7 +64,7 @@ Resources:
           CacheTtlInSeconds: 200
       Auth:
         Authorizers: 
-           MyLambdaRequestAuth:
+           LambdaRequestAuth:
                   FunctionPayloadType: REQUEST
                   FunctionArn: arn:aws:lambda:us-east-1:334110295592:function:service-podfy-user-application-validate-token
                   Identity:
@@ -101,6 +101,9 @@ Resources:
             RestApiId: !Ref ApiGatewayApi
             Path: /
             Method: POST
+            Auth:
+              ApiKeyRequired: false
+              Authorizer: !Ref ApiGatewayApi.Auth.LambdaRequestAuth
 
   LambdaDeleteMediaCounterFunction:
     Type: AWS::Serverless::Function
