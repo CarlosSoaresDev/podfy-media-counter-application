@@ -55,6 +55,8 @@ Resources:
     Properties:
       Name: !Sub '${ApplicationName}-api'
       StageName: Prod
+      EndpointConfiguration:
+        Type: PRIVATE
       CacheClusterEnabled: true
       CacheClusterSize: '0.5'
       MethodSettings:
